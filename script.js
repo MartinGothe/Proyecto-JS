@@ -36,12 +36,15 @@ if (edad >= 18) {
     alert("Tiene edad para ingresar al sitio")
 }
 else {
-    alert("No tiene edad para ingresar al sitio")
+    alert("No tiene edad para ingresar al sitio, solicitamos la presencia de un adulto")
 }
 
-
+function itemsComprados(arrayDeElemntos, funcion) {
+    for (const elemento of arrayDeElemntos) {
+        alert(`${elemento.cantidad} ${elemento.tipo}`)
+    }
+}
 let carrito = []
-
 while (true) {
     let opcionCompra = prompt("Ingrese un número: '1' para comprar Entradas de Infante (0-5 años), '2' para entradas de Adolescente (6-21 años), '3' para entrada de adulto +21")
 
@@ -77,9 +80,12 @@ while (true) {
     }
 
     alert(`Total: $${total}`)
+
+    itemsComprados(carrito, alert)
     break
     }
 }
+
 function verificarLongitud(numero, longitudEsperada) {
     return numero.length === longitudEsperada
 }
