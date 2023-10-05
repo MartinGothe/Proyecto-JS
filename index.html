@@ -3,12 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 
 </head>
 <body>
+    <header>
+        <nav>
+            <ul class="links-navegar">
+                <li><a class="links" href="#Inicio">INICIO</a></li>
+                <li><a class="links" href="./pages/camisetas.html">CAMISETAS</a></li>
+                <li><a class="links" href="./pages/buzos.html">BUZOS</a></li>
+                <li><a class="links" href="./pages/botines.html">BOTINES</a></li>
+                <li><a class="links" href="./pages/contacto.html">CONTACTO</a></li>
+            </ul>
+            <img src="./assets/img/fotologo-removebg-preview.png" alt="Logo" class="logo">
+        </nav>
+    </header>
     
+    <main>
+        <div class="contenedor">
+            <h2 class="titulo">CAMISETAS RETRO SELECCIONES</h2>
+            <div class="buscadores">
+            <div class="buscador">
+                <input id="buscador">
+            </div>
+            <div class="boton-buscar">
+                <button id="buscar">BUSCAR</button>
+            </div>
+            </div>
+            <div class="oculta" id="carrito"></div>
+            <button class="carritoCompras" id="verOcultar"><img class="imagen-carrito" src="./assets/img/carrito.png" alt="Carrito de compras"></button>
+        </div>
+        <div id="contenedorProductos">
+        </div>
+        <div id="resultado">
+        </div>
+        
+    </main>
 
 
 
