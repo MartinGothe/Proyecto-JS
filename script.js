@@ -1,8 +1,15 @@
 let productos = [
-    { id: 1, nombre: "ARGENTINA 1986", categoria: "remera", stock: 2, precio: (35000), rutaImagen: "argentina-1986.jpg"},
-    { id: 2, nombre: "BRASIL 1970", categoria: "remera", stock: 5, precio: (25000), rutaImagen: "brasil-1970.jpg"},
-    { id: 3, nombre: "ALEMANIA 1972", categoria: "remera", stock: 1, precio: (25000), rutaImagen: "deutschland-1972.jpg"},
-    { id: 4, nombre: "HOLANDA 1978", categoria: "remera", stock: 4, precio: (25000), rutaImagen: "nederland-1978.jpg"},
+    { id: 1, nombre: "ARGENTINA 1986", categoria: "remeras", stock: 2, precio: 35000, rutaImagen: "argentina-1986.jpg" },
+    { id: 2, nombre: "BRASIL 1970", categoria: "remeras", stock: 5, precio: 25000, rutaImagen: "brasil-1970.jpg" },
+    { id: 3, nombre: "ALEMANIA 1972", categoria: "remeras", stock: 1, precio: 25000, rutaImagen: "deutschland-1972.jpg" },
+    { id: 4, nombre: "HOLANDA 1978", categoria: "remeras", stock: 4, precio: 25000, rutaImagen: "nederland-1978.jpg" },
+    { id: 5, nombre: "ADIDAS ABSOLUTE", categoria: "botines", stock: 1, precio: 35000, rutaImagen: "AdidasAbsolute.webp" },
+    { id: 6, nombre: "NIKE TIEMPO", categoria: "botines", stock: 5, precio: 15000, rutaImagen: "NikeTiempo.webp" },
+    { id: 7, nombre: "PUMA FUTURE", categoria: "botines", stock: 3, precio: 17000, rutaImagen: "pUMA_future.avif" },
+    { id: 4, nombre: "TOTAL 90", categoria: "botines", stock: 1, precio: 40000, rutaImagen: "total90.webp" },
+    { id: 4, nombre: "DINAMARCA 1972", categoria: "buzos", stock: 4, precio: 35000, rutaImagen: "danmark-1972.jpg" },
+    { id: 4, nombre: "MEXICO", categoria: "buzos", stock: 4, precio: 35000, rutaImagen: "mexico-1978.jpg" },
+    { id: 4, nombre: "ESCOCIA", categoria: "buzos", stock: 4, precio: 35000, rutaImagen: "scotland-1967.jpg" },
 ]
 
 let carrito = []
@@ -60,6 +67,18 @@ function filtrarYRenderizar(productos){
     }
 }
 
+let botonesCategorias = document.getElementsByClassName("filtroCategoria")
+for (const botonCategoria of botonesCategorias) {
+    botonCategoria. addEventListener("click" , (e) => filtrarPorCategoria(e , productos))
+}
+
+function filtrarPorCategoria(e, productos) {
+    let productosFiltrados = productos.filter(producto =>{ 
+        return producto.categoria === e.target.id 
+    })
+    renderizarProductos(productosFiltrados)
+}
+
 function agregarProductoAlCarrito(productos, carrito, e) {
     let productoBuscado = productos.find( producto => producto.id === Number(e.target.id))
     let productoEnCarrito = carrito.find( producto => producto.id === productoBuscado.id)
@@ -92,19 +111,29 @@ function agregarProductoAlCarrito(productos, carrito, e) {
 function renderizarCarrito(productosEnCarrito) {
     let divCarrito = document.getElementById("carrito")
     divCarrito.innerHTML= ""
+        
+    
+    if(productosEnCarrito.length > 0) {
+        
+        productosEnCarrito.forEach(producto => {
+            console.log (productosEnCarrito)
+            let tarjetaProductoCarrito = document.createElement("div")
+            tarjetaProductoCarrito.classList.add("tarjetaProductoCarrito")
+            tarjetaProductoCarrito.innerHTML= `
+            <p>${producto.nombre}</p>
+            <img src="./assets/img/${producto.rutaImagen}" />
+            <p>Precio: $${producto.precioUnitario}</p>
+            <p>Unidades: ${producto.unidades}</p>
+            <p>Subtotal: $${producto.subtotal}</p>
+            `
 
-    productosEnCarrito.forEach(producto => {
-        let tarjetaProductoCarrito = document.createElement("div")
-        tarjetaProductoCarrito.innerHTML= `
-        <p>${producto.nombre}</p>
-        <img src="./assets/img/${producto.rutaImagen}" />
-        <p>Precio: $${producto.precioUnitario}</p>
-        <p>Unidades: ${producto.unidades}</p>
-        <p>Subtotal: $${producto.subtotal}</p>
-        `
-
-        divCarrito.appendChild(tarjetaProductoCarrito)
-    })
+            divCarrito.appendChild(tarjetaProductoCarrito)
+        })
+        let boton = document.createElement ("button")
+        boton.innerHTML = "Finalizar compra"
+        boton.addEventListener( "click" , finalizarCompra)
+        divCarrito.appendChild(boton)
+    }
 }
 
 let botonVerOcultar = document.getElementById("verOcultar")
@@ -118,3 +147,8 @@ function verOcultarCarrito() {
     contenedorProductos.classList.toggle("oculta")
 }
 
+function finalizarCompra() {
+    let carrito = document.getElementById("carrito")
+    carrito.innerHTML = ""
+    localStorage.removeItem("carrito")
+}
